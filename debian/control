@@ -1,0 +1,147 @@
+Source: mate-panel
+Section: misc
+Priority: optional
+Maintainer: Stefano Karapetsas <stefano@karapetsas.com>
+Standards-Version: 3.9.2
+Build-Depends: cdbs,
+               debhelper (>= 8),
+               autoconf,
+               intltool,
+               mate-doc-utils,
+               mate-doc-utils-gnome | gnome-doc-utils,
+               python,
+               libx11-dev,
+               libxau-dev,
+               libice-dev,
+               libsm-dev,
+               libgtk2.0-dev,
+               libmatedesktop-dev,
+               libmatecomponentui-dev,
+               libmatecomponent-dev,
+               libmatecanvas-dev,
+               libmate-dev,
+               libmatecorba-dev,
+               libwnck-dev,
+               libmateconf-dev,
+               libcairo2-dev,
+               gtk-doc-tools,
+               libmatemenu-dev,
+               libpango1.0-dev,
+               libglib2.0-dev ,
+               libmateweather-dev,
+               librsvg2-dev,
+               libdbus-glib-1-dev,
+               libdbus-1-dev,
+               libxrandr-dev,
+               libcanberra-gtk-dev,
+               libsoup2.4-dev,
+               libavahi-client-dev,
+               libavahi-common-dev,
+               libavahi-glib-dev,
+               libgirepository1.0-dev,
+               gobject-introspection,
+               gir1.2-gtk-2.0,
+               gir1.2-mate-conf,
+               gir1.2-glib-2.0,
+               gir1.2-atk-1.0,
+               gir1.2-freedesktop,
+               gir1.2-pango-1.0,
+               gir1.2-gdkpixbuf-2.0,
+               mate-common
+Homepage: http://www.mate-desktop.org/
+
+Package: mate-panel
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         mate-desktop,
+         mate-menus,
+         mate-conf (>= 1.1.0),
+         menu-xdg,
+         python,
+         mate-polkit,
+         libmatepanelapplet (= ${binary:Version}),
+         mate-panel-common (= ${source:Version})
+Breaks: mate-panel-common (<< 1.1.1-4)
+Replaces: mate-panel-common (<< 1.1.1-4)
+Description: launcher and docking facility for MATE
+ The MATE Panel is an essential part of the MATE Desktop, providing
+ toolbar-like “panels” which can be attached to the sides of your desktop.
+ They are used to launch applications and embed a number of other
+ functions, such as quick launch icons, the clock, the notification area,
+ volume controls and the battery charge indicator, and utilities ranging
+ from weather forecast to system monitoring.
+
+Package: mate-panel-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends},
+         mate-panel (= ${binary:Version}),
+         libmatepanelapplet (= ${binary:Version})
+Description: launcher and docking facility for MATE (debugging symbols)
+ This package contains debugging symbols for mate-panel and the 
+ libmatepanelapplet library. It is provided to help debugging problem in 
+ the panel itself or in the library. The debugging symbols are installed 
+ in /usr/lib/debug and will automatically be used by gdb.
+
+Package: mate-panel-common
+Architecture: all
+Depends: ${misc:Depends}
+Breaks: mate-panel (<= 1.0.2-3)
+Replaces: mate-panel (<= 1.0.2-3)
+Description: launcher and docking facility for MATE (common files)
+ The MATE Panel is an essential part of the MATE Desktop, providing
+ toolbar-like “panels” which can be attached to the sides of your desktop.
+ They are used to launch applications and embed a number of other
+ functions, such as quick launch icons, the clock, the notification area,
+ volume controls and the battery charge indicator, and utilities ranging
+ from weather forecast to system monitoring.
+ .
+ This package contains the architecture independent files.
+
+Package: libmatepanelapplet
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         mate-conf (>= 1.0.9)
+Breaks: mate-panel (<= 1.0.0-3)
+Description: library for MATE Panel applets
+ This library is used by MATE Panel applets.
+
+Package: libmatepanelapplet-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libmatepanelapplet (= ${binary:Version}),
+         libmatecomponentui-dev,
+         libmateconf-dev,
+         libgtk2.0-dev
+Description: library for MATE Panel applets (development files)
+ This library is used by MATE Panel applets.
+ .
+ This package contains the development files.
+
+Package: libmatepanelapplet-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: library for MATE Panel applets (documentation files)
+ This library is used by MATE Panel applets.
+ .
+ This package contains the documentation files.
+
+Package: gir1.2-mate-panel
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         ${python:Depends},
+         ${gir:Depends},
+         gir1.2-gtk-2.0
+Description: GObject introspection data for MATE panel
+ This package contains introspection data for MATE panel.
+ .
+ It can be used by packages using the GIRepository format to generate
+ dynamic bindings.

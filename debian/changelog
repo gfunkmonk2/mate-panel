@@ -1,0 +1,153 @@
+mate-panel (1.1.1-5) oneiric; urgency=low
+
+  * Add mateconf entry to disable 'Places' menu
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Thu, 26 Jan 2012 05:22:37 -0500
+
+mate-panel (1.1.1-4) oneiric; urgency=low
+
+  * Merge with github.com/mate-desktop
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Sun, 22 Jan 2012 20:28:27 -0500
+
+mate-panel (1.1.0-4) oneiric; urgency=low
+
+  * rename mate-menu-editor --> mozo
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Fri, 13 Jan 2012 20:02:07 -0500
+
+mate-panel (1.1.0-3) oneiric; urgency=low
+
+  * apply ubuntu patches
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Tue, 10 Jan 2012 22:36:33 -0500
+
+mate-panel (1.1.0-2) oneiric; urgency=low
+
+  * Add link to menueditor if avaliable in System menu
+  * Set a default icon if none provided
+  * Added options to clock widget for 'Fuzzy time'
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Mon, 09 Jan 2012 01:57:21 -0500
+
+mate-panel (1.1.0-1) oneiric; urgency=low
+
+  * initial
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Sat, 07 Jan 2012 05:16:24 -0500
+
+mate-panel (1.1.0-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 10 Dec 2011 20:37:19 +0100
+
+mate-panel (1.0.9-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Tue, 29 Nov 2011 02:27:11 +0100
+
+mate-panel (1.0.8-0+really1.0.0) unstable; urgency=low
+
+  * Try to understand various mate-panel issues.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Mon, 28 Nov 2011 16:03:57 +0100
+
+mate-panel (1.0.7-2) unstable; urgency=low
+
+  * Dropped applets in process.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 26 Nov 2011 17:04:32 +0100
+
+mate-panel (1.0.7-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 26 Nov 2011 13:45:56 +0100
+
+mate-panel (1.0.2-5) unstable; urgency=low
+
+  * Added mate-panel-dbg package.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 26 Nov 2011 01:34:11 +0100
+
+mate-panel (1.0.2-4) unstable; urgency=low
+
+  * Fixed debian/ folder.
+  * Added mate-panel-common package.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Thu, 24 Nov 2011 23:57:21 +0100
+
+mate-panel (1.0.2-3) unstable; urgency=low
+
+  * Fixed conflict with mate-panel package in mint/lisa.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Thu, 24 Nov 2011 16:42:10 +0100
+
+mate-panel (1.0.2-2) unstable; urgency=low
+
+  * mate-panel.install: added some missing files.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Thu, 17 Nov 2011 21:15:01 +0100
+
+mate-panel (1.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Tue, 08 Nov 2011 01:06:22 +0100
+
+mate-panel (1.0.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sun, 06 Nov 2011 23:45:28 +0100
+
+mate-panel (1.0.0-5) unstable; urgency=low
+
+  * Added --enable-matecomponent in debian/rules.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sun, 06 Nov 2011 22:01:30 +0100
+
+mate-panel (1.0.0-4) unstable; urgency=low
+
+  * Fixed scripts in debian folder.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sun, 06 Nov 2011 20:05:58 +0100
+
+mate-panel (1.0.0-3) unstable; urgency=low
+
+  * Fixed error in prerm
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 05 Nov 2011 16:00:30 +0000
+
+mate-panel (1.0.0-2) unstable; urgency=low
+
+  * Fixed debian/ folder.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 05 Nov 2011 14:18:24 +0100
+
+mate-panel (1.0.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Clement Lefebvre <root@linuxmint.com>  Sat, 05 Nov 2011 12:38:48 +0000
+
+mate-panel (2011.10.27-2) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 29 Oct 2011 00:37:12 +0200
+
+mate-panel (2011.10.27-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Thu, 27 Oct 2011 02:07:08 +0200
+
+mate-panel (2011.10.18-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefano Karapetsas <stefano@karapetsas.com>  Sat, 22 Oct 2011 02:12:53 +0200
+ 
