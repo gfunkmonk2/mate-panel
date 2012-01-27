@@ -571,7 +571,7 @@ format_time (ClockData *cd)
                 if (strftime (hour, sizeof (hour), cd->timeformat, tm) <= 0)
 			strcpy (hour, "");
 
-                utf8 = malloc(100*sizeof(char));
+                utf8 = malloc(sizeof(hour) + 100*sizeof(char));
                 strcpy(utf8, hour);
 
                 if (tm->tm_min > 52 || tm->tm_min < 8)
@@ -582,54 +582,54 @@ format_time (ClockData *cd)
                         switch (tm->tm_hour)
                         {
                                 case 0:
-                                        strcat(utf8, "Midnight");
+                                        strncat(utf8, "Midnight", 9);
                                         break;
                                 case 12:
-                                        strcat(utf8, "Noon");
+                                        strncat(utf8, "Noon", 5);
                                 break;
                                 case 1:
                                 case 13:
-                                        strcat(utf8, "One o'clock");
+                                        strncat(utf8, "One o'clock", 12);
                                         break;
                                 case 2:
                                 case 14:
-                                        strcat(utf8, "Two o'clock");
+                                        strncat(utf8, "Two o'clock", 12);
                                         break;
                                 case 3:
                                 case 15:
-                                        strcat(utf8, "Three o'clock");
+                                        strncat(utf8, "Three o'clock", 14);
                                         break;
                                 case 4:
                                 case 16:
-                                        strcat(utf8, "Four o'clock");
+                                        strncat(utf8, "Four o'clock", 13);
                                         break;
                                 case 5:
                                 case 17:
-                                        strcat(utf8, "Five o'clock");
+                                        strncat(utf8, "Five o'clock", 13);
                                         break;
                                 case 6:
                                 case 18:
-                                        strcat(utf8, "Six o'clock");
+                                        strncat(utf8, "Six o'clock", 12);
                                         break;
                                 case 7:
                                 case 19:
-                                        strcat(utf8, "Seven o'clock");
+                                        strncat(utf8, "Seven o'clock", 14);
                                         break;
                                 case 8:
                                 case 20:
-                                        strcat(utf8, "Eight o'clock");
+                                        strncat(utf8, "Eight o'clock", 14);
                                         break;
                                 case 9:
                                 case 21:
-                                        strcat(utf8, "Nine o'clock");
+                                        strncat(utf8, "Nine o'clock", 13);
                                         break;
                                 case 10:
                                 case 22:
-                                        strcat(utf8, "Ten o'clock");
+                                        strncat(utf8, "Ten o'clock", 12);
                                         break;
                                 case 11:
                                 case 23:
-                                        strcat(utf8, "Eleven o'clock");
+                                        strncat(utf8, "Eleven o'clock", 15);
                                         break;
                         }
                 }
@@ -637,69 +637,69 @@ format_time (ClockData *cd)
                 {
                         if (tm->tm_min > 7 && tm->tm_min < 23)
                         {
-                                strcat(utf8, "Quarter past ");
+                                strncat(utf8, "Quarter past ", 14);
                         }
                         if (tm->tm_min > 22 && tm->tm_min < 38)
                         {
-                                strcat(utf8, "Half past ");
+                                strncat(utf8, "Half past ", 11);
                         }
                         if (tm->tm_min > 37 && tm->tm_min < 53)
                         {
-                                strcat(utf8, "Quarter to ");
+                                strncat(utf8, "Quarter to ", 12);
                                 tm->tm_hour = (tm->tm_hour+1) % 24;
                         }
         
                         switch (tm->tm_hour)
                         {
                                 case 0:
-                                        strcat(utf8, "midnight");
+                                        strncat(utf8, "midnight", 9);
                                         break;
                                 case 12:
-                                        strcat(utf8, "noon");
+                                        strncat(utf8, "noon", 5);
                                 break;
                                 case 1:
                                 case 13:
-                                        strcat(utf8, "one");
+                                        strncat(utf8, "one", 4);
                                         break;
                                 case 2:
                                 case 14:
-                                        strcat(utf8, "two");
+                                        strncat(utf8, "two", 4);
                                         break;
                                 case 3:
                                 case 15:
-                                        strcat(utf8, "three");
+                                        strncat(utf8, "three", 6);
                                         break;
                                 case 4:
                                 case 16:
-                                        strcat(utf8, "four");
+                                        strncat(utf8, "four", 5);
                                         break;
                                 case 5:
                                 case 17:
-                                        strcat(utf8, "five");
+                                        strncat(utf8, "five", 5);
                                         break;
                                 case 6:
                                 case 18:
-                                        strcat(utf8, "six");
+                                        strncat(utf8, "six", 4);
                                         break;
                                 case 7:
                                 case 19:
-                                        strcat(utf8, "seven");
+                                        strncat(utf8, "seven", 6);
                                         break;
                                 case 8:
                                 case 20:
-                                        strcat(utf8, "eight");
+                                        strncat(utf8, "eight", 6);
                                         break;
                                 case 9:
                                 case 21:
-                                        strcat(utf8, "nine");
+                                        strncat(utf8, "nine", 6);
                                         break;
                                 case 10:
                                 case 22:
-                                        strcat(utf8, "ten");
+                                        strncat(utf8, "ten", 4);
                                         break;
                                 case 11:
                                 case 23:
-                                        strcat(utf8, "eleven");
+                                        strncat(utf8, "eleven", 7);
                                         break;
                         }
                 }
@@ -716,39 +716,39 @@ format_time (ClockData *cd)
                         case 0:
                         case 1:
                         case 2:
-                                strcat(utf8, "Late night");
+                                strncat(utf8, "Late night", 11);
                                 break;
                         case 3:
                         case 4:
                         case 5:
                         case 6:
                         case 7:
-                                strcat(utf8, "Early morning");
+                                strncat(utf8, "Early morning", 14);
                                 break;
                         case 8:
                         case 9:
                         case 10:
-                                strcat(utf8, "Morning");
+                                strncat(utf8, "Morning", 8);
                                 break;
                         case 11:
                         case 12:
                         case 13:
-                                strcat(utf8, "Mid-day");
+                                strncat(utf8, "Mid-day", 8);
                                 break;
                         case 14:
                         case 15:
                         case 16:
-                                strcat(utf8, "Afternoon");
+                                strncat(utf8, "Afternoon", 10);
                                 break;
                         case 17:
                         case 18:
                         case 19:
-                                strcat(utf8, "Evening");
+                                strncat(utf8, "Evening", 8);
                                 break;
                         case 20:
                         case 21:
                         case 22:
-                                strcat(utf8, "Night");
+                                strncat(utf8, "Night", 6);
                                 break;
                 }
 	} else {
