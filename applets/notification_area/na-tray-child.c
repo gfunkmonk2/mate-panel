@@ -331,7 +331,7 @@ na_tray_child_get_title (NaTrayChild *child)
                                &type, &format, &nitems,
                                &bytes_after, (guchar **)&val);
 
-  if (gdk_error_trap_pop () || result != Success)
+  if (gdk_error_trap_pop () || !result)
     return NULL;
 
   if (type != utf8_string ||

@@ -26,7 +26,6 @@
 #include "panel-action-button.h"
 #include "panel-menu-bar.h"
 #include "panel-separator.h"
-#include "panel-compatibility.h"
 #include "panel-toplevel.h"
 #include "panel-util.h"
 #include "panel-profile.h"
@@ -65,8 +64,6 @@ mate_panel_applet_set_dnd_enabled (AppletInfo *info,
 		break;
 	case PANEL_OBJECT_APPLET:
 		break;
-	case PANEL_OBJECT_LOGOUT:
-	case PANEL_OBJECT_LOCK:
 	case PANEL_OBJECT_ACTION:
 		panel_action_button_set_dnd_enabled (PANEL_ACTION_BUTTON (info->widget),
 						     dnd_enabled);
@@ -268,8 +265,6 @@ applet_callback_callback (GtkWidget      *widget,
 			PANEL_MENU_BUTTON (menu->info->widget), menu->name);
 		break;
 	case PANEL_OBJECT_ACTION:
-	case PANEL_OBJECT_LOGOUT:
-	case PANEL_OBJECT_LOCK:
 		panel_action_button_invoke_menu (
 			PANEL_ACTION_BUTTON (menu->info->widget), menu->name);
 		break;
@@ -523,6 +518,20 @@ mate_panel_applet_create_menu (AppletInfo *info)
 			gtk_widget_show (menuitem);
 		}
 
+		menuitem = gtk_menu_item_new_with_mnemonic (_("_Move"));
+		g_signal_connect (menuitem, "activate",
+				  G_CALLBACK (move_applet_callback), info);
+		gtk_widget_show (menuitem);
+		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
+		gtk_widget_set_sensitive (menuitem, movable);
+
+		g_assert (info->move_item == NULL);
+
+
+		info->move_item = menuitem;
+		g_object_add_weak_pointer (G_OBJECT (menuitem),
+					   (gpointer *) &info->move_item);
+
 		menuitem = gtk_image_menu_item_new_with_mnemonic (_("_Remove From Panel"));
 		image = gtk_image_new_from_stock (GTK_STOCK_REMOVE,
 						  GTK_ICON_SIZE_MENU);
@@ -533,19 +542,6 @@ mate_panel_applet_create_menu (AppletInfo *info)
 		gtk_widget_show (menuitem);
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
 		gtk_widget_set_sensitive (menuitem, (!locked || lockable) && removable);
-
-		menuitem = gtk_menu_item_new_with_mnemonic (_("_Move"));
-		g_signal_connect (menuitem, "activate",
-				  G_CALLBACK (move_applet_callback), info);
-		gtk_widget_show (menuitem);
-		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
-		gtk_widget_set_sensitive (menuitem, !locked && movable);
-
-		g_assert (info->move_item == NULL);
-
-		info->move_item = menuitem;
-		g_object_add_weak_pointer (G_OBJECT (menuitem),
-					   (gpointer *) &info->move_item);
 
 		menuitem = gtk_separator_menu_item_new ();
 		gtk_menu_shell_append (GTK_MENU_SHELL (menu), menuitem);
@@ -974,16 +970,6 @@ mate_panel_applet_load_idle_handler (gpointer dummy)
 					  applet->locked,
 					  applet->position,
 					  applet->id);
-		break;
-	case PANEL_OBJECT_LOGOUT:
-	case PANEL_OBJECT_LOCK:
-		panel_action_button_load_compatible (
-				applet->type,
-				panel_widget,
-				applet->locked,
-				applet->position,
-				TRUE,
-				applet->id);
 		break;
 	case PANEL_OBJECT_ACTION:
 		panel_action_button_load_from_mateconf (

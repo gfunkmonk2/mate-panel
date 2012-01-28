@@ -83,10 +83,7 @@ typedef enum {
 	PANEL_OBJECT_APPLET,
 	PANEL_OBJECT_ACTION,
 	PANEL_OBJECT_MENU_BAR,
-	PANEL_OBJECT_SEPARATOR,
-	/* The following two are for backwards compatibility with 2.0.x */
-	PANEL_OBJECT_LOGOUT,
-	PANEL_OBJECT_LOCK
+	PANEL_OBJECT_SEPARATOR
 } PanelObjectType;
 
 typedef enum {
@@ -98,8 +95,7 @@ typedef enum {
 	PANEL_ACTION_FORCE_QUIT,
 	PANEL_ACTION_CONNECT_SERVER,
 	PANEL_ACTION_SHUTDOWN,
-	/* compatibility with MATE < 2.13.90 */
-        PANEL_ACTION_SCREENSHOT,
+#define PANEL_ACTION_LAST_NON_DEPRECATED PANEL_ACTION_SHUTDOWN
         PANEL_ACTION_LAST
 } PanelActionButtonType;
 

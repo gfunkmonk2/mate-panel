@@ -49,7 +49,6 @@
 #include "panel-run-dialog.h"
 #include "panel-a11y.h"
 #include "panel-lockdown.h"
-#include "panel-compatibility.h"
 #include "panel-icon-names.h"
 
 G_DEFINE_TYPE (PanelActionButton, panel_action_button, BUTTON_TYPE_WIDGET)
@@ -82,8 +81,6 @@ static MateConfEnumStringPair panel_action_type_map [] = {
 	{ PANEL_ACTION_FORCE_QUIT,     "force-quit"     },
 	{ PANEL_ACTION_CONNECT_SERVER, "connect-server" },
 	{ PANEL_ACTION_SHUTDOWN,       "shutdown"       },
-	/* compatibility with MATE < 2.13.90 */
-	{ PANEL_ACTION_SCREENSHOT,     "screenshot"     },
 	{ 0,                           NULL             },
 };
 
@@ -350,12 +347,6 @@ static PanelAction actions [] = {
 		"ACTION:shutdown:NEW",
 		panel_action_shutdown, NULL, NULL,
 		panel_action_shutdown_reboot_is_disabled
-	},
-	/* deprecated actions */
-	{
-		PANEL_ACTION_SCREENSHOT,
-		NULL, NULL, NULL, NULL, NULL,
-		NULL, NULL, NULL, NULL
 	}
 };
 
@@ -364,7 +355,7 @@ panel_action_get_is_deprecated (PanelActionButtonType type)
 {
 	g_return_val_if_fail (type > PANEL_ACTION_NONE && type < PANEL_ACTION_LAST, FALSE);
 
-	return (type >= PANEL_ACTION_SCREENSHOT);
+	return (type > PANEL_ACTION_LAST_NON_DEPRECATED);
 }
 
 gboolean
@@ -672,34 +663,18 @@ panel_action_button_load (PanelActionButtonType  type,
 			  gboolean               locked,
 			  int                    position,
 			  gboolean               exactpos,
-			  const char            *id,
-			  gboolean               compatibility)
+			  const char            *id)
 {
 	PanelActionButton *button;
-	PanelObjectType    object_type;
 
 	g_return_if_fail (panel != NULL);
 
 	button = g_object_new (PANEL_TYPE_ACTION_BUTTON, "action-type", type, NULL);
 
-	object_type = PANEL_OBJECT_ACTION;
-
-	if (compatibility)
-	{ /* Backward compatibility with MATE 2.0.x */
-		if (type == PANEL_ACTION_LOCK)
-		{
-			object_type = PANEL_OBJECT_LOCK;
-		}
-		else if (type == PANEL_ACTION_LOGOUT)
-		{
-			object_type = PANEL_OBJECT_LOGOUT;
-		}
-	}
-
 	button->priv->info = mate_panel_applet_register (GTK_WIDGET (button),
 						    NULL, NULL,
 						    panel, locked, position,
-						    exactpos, object_type, id);
+						    exactpos, PANEL_OBJECT_ACTION, id);
 	if (!button->priv->info) {
 		gtk_widget_destroy (GTK_WIDGET (button));
 		return;
@@ -747,28 +722,6 @@ panel_action_button_create (PanelToplevel         *toplevel,
 	g_free (id);
 }
 
-/* This is only for backwards compatibility with 2.0.x
- * We load an old-style lock/logout button as an action
- * button but make sure to retain the lock/logout configuration
- * so logging back into 2.0.x still works.
- */
-void
-panel_action_button_load_compatible (PanelObjectType  object_type,
-				     PanelWidget     *panel,
-				     gboolean         locked,
-				     int              position,
-				     gboolean         exactpos,
-				     const char      *id)
-{
-	PanelActionButtonType action_type;
-
-	g_assert (object_type == PANEL_OBJECT_LOGOUT || object_type == PANEL_OBJECT_LOCK);
-
-	action_type = object_type == PANEL_OBJECT_LOGOUT ? PANEL_ACTION_LOGOUT : PANEL_ACTION_LOCK;
-
-	panel_action_button_load (action_type, panel, locked, position, exactpos, id, TRUE);
-}
-
 void
 panel_action_button_load_from_mateconf (PanelWidget *panel,
 				     gboolean     locked,
@@ -791,13 +744,8 @@ panel_action_button_load_from_mateconf (PanelWidget *panel,
 
 	g_free (action_type);
 
-	/* compatibility: migrate from MATE < 2.13.90 */
-	if (type == PANEL_ACTION_SCREENSHOT)
-		panel_compatibility_migrate_screenshot_action (panel_mateconf_get_client (),
-							       id);
-	else
-		panel_action_button_load (type, panel, locked,
-					  position, exactpos, id, FALSE);
+	panel_action_button_load (type, panel, locked,
+				  position, exactpos, id);
 }
 
 void

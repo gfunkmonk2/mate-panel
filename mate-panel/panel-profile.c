@@ -32,7 +32,6 @@
 #include <libpanel-util/panel-list.h>
 
 #include "applet.h"
-#include "panel-compatibility.h"
 #include "panel-mateconf.h"
 #include "panel.h"
 #include "panel-widget.h"
@@ -103,9 +102,6 @@ static MateConfEnumStringPair panel_object_type_map [] = {
 	{ PANEL_OBJECT_ACTION,    "action-applet" },
 	{ PANEL_OBJECT_MENU_BAR,  "menu-bar" },
 	{ PANEL_OBJECT_SEPARATOR, "separator" },
-	/* The following two are for backwards compatibility with 2.0.x */
-	{ PANEL_OBJECT_LOCK,      "lock-object" },
-	{ PANEL_OBJECT_LOGOUT,    "logout-object" },
 	{ 0,                      NULL }
 };
 
@@ -2515,10 +2511,6 @@ panel_profile_load (void)
 	client  = panel_mateconf_get_client ();
 
 	mateconf_client_add_dir (client, PANEL_CONFIG_DIR "/general", MATECONF_CLIENT_PRELOAD_ONELEVEL, NULL);
-
-	panel_compatibility_maybe_copy_old_config (client);
-
-	panel_compatibility_migrate_panel_id_list (client);
 
 	panel_profile_load_list (client,
 				 PANEL_CONFIG_DIR,

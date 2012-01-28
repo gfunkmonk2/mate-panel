@@ -317,15 +317,20 @@ clock_set_timeout (ClockData *cd,
 		}
 	} else {
  		struct timeval tv;
+		struct tm *tm;
 
 		gettimeofday (&tv, NULL);
  		timeouttime = (G_USEC_PER_SEC - tv.tv_usec)/1000+1;
 
 		/* timeout of one minute if we don't care about the seconds */
  		if (cd->format != CLOCK_FORMAT_UNIX &&
-		    !cd->showseconds &&
-		    (!cd->set_time_window || !gtk_widget_get_visible (cd->set_time_window)))
- 			timeouttime += 1000 * (59 - now % 60);
+		    !cd->showseconds) {
+			/* we use localtime() to handle leap seconds, see
+			 * https://bugzilla.gnome.org/show_bug.cgi?id=604317 */
+			tm = localtime (&now);
+			if (tm->tm_sec < 60)
+				timeouttime += 1000 * (59 - tm->tm_sec);
+		}
  	}
 
 	cd->timeout = g_timeout_add (timeouttime,
@@ -1507,12 +1512,33 @@ create_main_clock_button (void)
         return button;
 }
 
+ static void
+_gtk_label_make_bold (GtkLabel *label)
+{
+        PangoFontDescription *font_desc;
+
+        font_desc = pango_font_description_new ();
+
+        pango_font_description_set_weight (font_desc,
+                                           PANGO_WEIGHT_BOLD);
+
+        /* This will only affect the weight of the font, the rest is
+         * from the current state of the widget, which comes from the
+         * theme or user prefs, since the font desc only has the
+         * weight flag turned on.
+         */
+        gtk_widget_modify_font (GTK_WIDGET (label), font_desc);
+
+        pango_font_description_free (font_desc);
+}
+
 static GtkWidget *
 create_main_clock_label (ClockData *cd)
 {
         GtkWidget *label;
 
         label = gtk_label_new (NULL);
+	_gtk_label_make_bold (GTK_LABEL (label));
 	g_signal_connect (label, "size_request",
 			  G_CALLBACK (clock_size_request),
 			  cd);

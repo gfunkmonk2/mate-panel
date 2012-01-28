@@ -41,7 +41,6 @@
 #include "panel-globals.h"
 #include "panel-multiscreen.h"
 #include "panel-lockdown.h"
-#include "panel-compatibility.h"
 #include "panel-ditem-editor.h"
 #include "panel-icon-names.h"
 
@@ -833,7 +832,6 @@ launcher_load_from_mateconf (PanelWidget *panel_widget,
 	client  = panel_mateconf_get_client ();
 
 	key = panel_mateconf_full_key (PANEL_MATECONF_OBJECTS, id, "launcher_location");
-	panel_compatibility_migrate_applications_scheme (client, key);
 	launcher_location = mateconf_client_get_string (client, key, NULL);
 
 	if (!launcher_location) {

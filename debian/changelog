@@ -1,3 +1,9 @@
+mate-panel (1.1.1-7) oneiric; urgency=low
+
+  * Merge some changes from 3.0.2
+
+ -- Matt Rinsch <gfunkmonk@gmail.com>  Sat, 28 Jan 2012 07:30:20 -0500
+
 mate-panel (1.1.1-6) oneiric; urgency=low
 
   * Code cleanup

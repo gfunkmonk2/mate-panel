@@ -32,13 +32,6 @@
 extern "C" {
 #endif
 
-void panel_compatibility_migrate_panel_id_list (MateConfClient *client);
-void panel_compatibility_maybe_copy_old_config (MateConfClient *client);
-void panel_compatibility_migrate_applications_scheme (MateConfClient *client,
-						      const char  *key);
-void panel_compatibility_migrate_screenshot_action (MateConfClient *client,
-						   const char  *id);
-
 gchar *panel_compatibility_get_applet_iid (const gchar *id);
 
 #ifdef __cplusplus
